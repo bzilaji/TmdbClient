@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TmdbClient</string>
+    <string name="movie_tab">Movies</string>
+    <string name="tv_tab">Tv</string>
+    <string name="people_tab">People</string>
+    <string name="search">search</string>
+    <string name="error">Error,check internet!</string>
+    <string name="retry">retry</string>
+    <string name="imdb">check on imdb</string>
+</resources>
