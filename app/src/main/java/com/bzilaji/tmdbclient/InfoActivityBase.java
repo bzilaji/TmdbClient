@@ -2,7 +2,6 @@ package com.bzilaji.tmdbclient;
 
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bzilaji.tmdbclient.model.DetailedItem;
+import com.bzilaji.tmdbclient.utils.ImdbUtil;
+import com.bzilaji.tmdbclient.utils.StartWebPageCommand;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -99,7 +100,8 @@ public abstract class InfoActivityBase extends AppCompatActivity {
     }
 
     private void showImdbPage() {
-
+        String url = new ImdbUtil().getImdbUrl(detailedItem.getImdbId());
+        new StartWebPageCommand(url,this).excecute();
     }
 
     private void startDownload() {
@@ -135,7 +137,7 @@ public abstract class InfoActivityBase extends AppCompatActivity {
         website.setText(item.getWebPage());
         imdbButton.setVisibility(!TextUtils.isEmpty(item.getImdbId()) ? View.VISIBLE : View.GONE);
         Picasso.with(this).load(item.getImagePath()).into(imageView);
-        Log.d("Bencike", "item set:" + item.getTitle()+" ,"+item.getWebPage());
+        Log.d("Bencike", "item set:" + item.getTitle() + " ," + item.getWebPage());
     }
 
     @Override

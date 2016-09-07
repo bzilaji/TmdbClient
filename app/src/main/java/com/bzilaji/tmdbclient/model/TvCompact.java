@@ -2,12 +2,10 @@ package com.bzilaji.tmdbclient.model;
 
 
 import com.bzilaji.tmdbclient.BuildConfig;
-import com.bzilaji.tmdbclient.Utils;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class TvCompact extends Media implements PreviewableMediaItem {

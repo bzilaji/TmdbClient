@@ -1,13 +1,9 @@
 package com.bzilaji.tmdbclient.model;
 
 import com.bzilaji.tmdbclient.BuildConfig;
-import com.bzilaji.tmdbclient.Utils;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 
