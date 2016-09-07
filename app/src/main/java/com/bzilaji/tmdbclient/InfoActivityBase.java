@@ -6,7 +6,6 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,8 +13,6 @@ import android.widget.TextView;
 
 import com.bzilaji.tmdbclient.model.DetailedItem;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,6 +34,10 @@ public abstract class InfoActivityBase extends AppCompatActivity {
     private ImageView imageView;
     private SimpleDateFormat format = new SimpleDateFormat("yyyy");
     private CollapsingToolbarLayout collapsingToolbar;
+    private View progressBar;
+    private View retryContainer;
+    private View retryButton;
+    private View rootLayout;
 
 
     @Override
@@ -54,6 +55,7 @@ public abstract class InfoActivityBase extends AppCompatActivity {
         description = (TextView) findViewById(R.id.details);
         imageView = (ImageView) findViewById(R.id.imageView);
         website = (TextView) findViewById(R.id.website);
+        progressBar = findViewById(R.id.progressBar);
         imdbButton = findViewById(R.id.imdbButton);
         imdbButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,35 +63,47 @@ public abstract class InfoActivityBase extends AppCompatActivity {
                 showImdbPage();
             }
         });
+        retryContainer = findViewById(R.id.errorLayout);
+        retryButton = findViewById(R.id.retry);
+        retryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startDownload();
+            }
+        });
+        rootLayout=findViewById(R.id.rootLayout);
         startDownload();
     }
 
     private void showImdbPage() {
+
     }
 
     private void startDownload() {
-        int anInt = getIntent().getExtras().getInt(ITEM_ID);
-        Log.d("Bencike", "sanya:" + anInt);
-        Call<DetailedItem> call = getCall(anInt);
+        rootLayout.setVisibility(View.GONE);
+        retryContainer.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+        Call<DetailedItem> call = getCall(getIntent().getExtras().getInt(ITEM_ID));
         call.enqueue(new Callback<DetailedItem>() {
             @Override
             public void onResponse(Call<DetailedItem> call, Response<DetailedItem> response) {
                 setItem(response.body());
+                progressBar.setVisibility(View.GONE);
+                rootLayout.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onFailure(Call<DetailedItem> call, Throwable t) {
-                Log.e("Bencike", "Error", t);
+                progressBar.setVisibility(View.GONE);
+                retryContainer.setVisibility(View.VISIBLE);
             }
         });
     }
 
     private void setItem(DetailedItem item) {
         detailedItem = item;
-        Picasso.with(this).load(item.getImagePath())
-                .placeholder(R.drawable.default_placeholder).fit().centerCrop().into(imageView);
+        Picasso.with(this).load(item.getImagePath()).into(imageView);
         description.setText(item.getDescription());
-        //setTitle
         rating.setText(String.format("%.1f", item.getRating()));
         collapsingToolbar.setTitle(item.getTitle());
         try {
@@ -104,6 +118,7 @@ public abstract class InfoActivityBase extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
