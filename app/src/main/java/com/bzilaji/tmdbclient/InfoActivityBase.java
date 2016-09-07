@@ -2,10 +2,12 @@ package com.bzilaji.tmdbclient;
 
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,6 +25,7 @@ import retrofit2.Response;
 
 public abstract class InfoActivityBase extends AppCompatActivity {
 
+    private static final String KEY_ITEM = "Item";
     public static final String ITEM_ID = "ITEM_ID";
     private DetailedItem detailedItem;
     private TextView website;
@@ -71,8 +74,28 @@ public abstract class InfoActivityBase extends AppCompatActivity {
                 startDownload();
             }
         });
-        rootLayout=findViewById(R.id.rootLayout);
-        startDownload();
+        rootLayout = findViewById(R.id.rootLayout);
+        downloadOrLoadSavedItem(savedInstanceState);
+    }
+
+    private void downloadOrLoadSavedItem(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            detailedItem = (DetailedItem) savedInstanceState.getSerializable(KEY_ITEM);
+        }
+        if (detailedItem == null) {
+            startDownload();
+        } else {
+            progressBar.setVisibility(View.GONE);
+            retryContainer.setVisibility(View.GONE);
+            setItem(detailedItem);
+        }
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable(KEY_ITEM, detailedItem);
+        super.onSaveInstanceState(outState);
     }
 
     private void showImdbPage() {
@@ -86,7 +109,7 @@ public abstract class InfoActivityBase extends AppCompatActivity {
         Call<DetailedItem> call = getCall(getIntent().getExtras().getInt(ITEM_ID));
         call.enqueue(new Callback<DetailedItem>() {
             @Override
-            public void onResponse(Call<DetailedItem> call, Response<DetailedItem> response) {
+            public void onResponse(final Call<DetailedItem> call, final Response<DetailedItem> response) {
                 setItem(response.body());
                 progressBar.setVisibility(View.GONE);
                 rootLayout.setVisibility(View.VISIBLE);
@@ -102,7 +125,6 @@ public abstract class InfoActivityBase extends AppCompatActivity {
 
     private void setItem(DetailedItem item) {
         detailedItem = item;
-        Picasso.with(this).load(item.getImagePath()).into(imageView);
         description.setText(item.getDescription());
         rating.setText(String.format("%.1f", item.getRating()));
         collapsingToolbar.setTitle(item.getTitle());
@@ -112,6 +134,8 @@ public abstract class InfoActivityBase extends AppCompatActivity {
         }
         website.setText(item.getWebPage());
         imdbButton.setVisibility(!TextUtils.isEmpty(item.getImdbId()) ? View.VISIBLE : View.GONE);
+        Picasso.with(this).load(item.getImagePath()).into(imageView);
+        Log.d("Bencike", "item set:" + item.getTitle()+" ,"+item.getWebPage());
     }
 
     @Override

@@ -1,7 +1,10 @@
 package com.bzilaji.tmdbclient.model;
 
 
-public interface DetailedItem extends PreviewableMediaItem {
+import java.io.Serializable;
+
+//Todo:move to parcelable
+public interface DetailedItem extends PreviewableMediaItem, Serializable {
 
     String getWebPage();
 

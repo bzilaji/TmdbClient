@@ -27,6 +27,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private ToolBarSearchView searchView;
 
     @Override
@@ -35,11 +36,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.tabbed_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final ViewPagerAdapter adapter = createPagerAdapter();
         viewPager.setAdapter(adapter);
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         searchView = (ToolBarSearchView) findViewById(R.id.search_bar);

@@ -1,6 +1,8 @@
 package com.bzilaji.tmdbclient.model;
 
 
+import android.os.Parcel;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Collection;
