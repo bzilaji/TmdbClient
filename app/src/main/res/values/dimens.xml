@@ -1,7 +1,9 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="keyline_1">16dp</dimen>
     <dimen name="keyline_1_half">8dp</dimen>
+    <dimen name="media_card_inner_padding" >@dimen/keyline_1_half</dimen>
+    <dimen name="media_card_height" >200dp</dimen>
+
 </resources>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="210dp"
+    android:layout_height="@dimen/media_card_height"
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true">
 
@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="@dimen/keyline_1_half">
+            android:padding="@dimen/media_card_inner_padding">
 
 
             <LinearLayout
@@ -96,8 +96,8 @@
                 android:id="@+id/details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/keyline_1_half"
-                android:layout_marginTop="@dimen/keyline_1_half"
+                android:layout_marginBottom="@dimen/media_card_inner_padding"
+                android:layout_marginTop="@dimen/media_card_inner_padding"
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:lines="3"
