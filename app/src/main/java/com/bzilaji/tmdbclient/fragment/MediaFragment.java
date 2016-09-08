@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bzilaji.tmdbclient.R;
+import com.bzilaji.tmdbclient.fragment.adapter.PreviewItemAdapter;
+import com.bzilaji.tmdbclient.fragment.adapter.PreviewItemHolder;
 import com.bzilaji.tmdbclient.model.GenreAdapter;
 import com.bzilaji.tmdbclient.model.Genres;
 import com.bzilaji.tmdbclient.model.PreviewableItem;

@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.bzilaji.tmdbclient.R;
+import com.bzilaji.tmdbclient.fragment.adapter.PreviewItemAdapter;
+import com.bzilaji.tmdbclient.fragment.adapter.PreviewItemHolder;
 
 import retrofit2.Call;
 
