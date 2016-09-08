@@ -36,14 +36,6 @@ public abstract class PreviewFragment extends FilterableFragmentBase {
         startDownload();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        progressBar = null;
-        recycleView.setAdapter(null);
-        recycleView = null;
-    }
-
     protected void startDownload() {
         downloadItems();
     }
@@ -90,6 +82,16 @@ public abstract class PreviewFragment extends FilterableFragmentBase {
         });
         retryContainer = view.findViewById(R.id.retryContainer);
         toogleErrorviewState(currentState == STATE_ERROR);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        progressBar = null;
+        recycleView.setAdapter(null);
+        recycleView = null;
+        retryButton = null;
+        retryContainer = null;
     }
 
 
