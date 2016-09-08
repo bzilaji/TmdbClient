@@ -101,7 +101,7 @@ public abstract class InfoActivityBase extends AppCompatActivity {
 
     private void showImdbPage() {
         String url = new ImdbUtil().getImdbUrl(detailedItem.getImdbId());
-        new StartWebPageCommand(url,this).excecute();
+        new StartWebPageCommand(url,this).execute();
     }
 
     private void startDownload() {

@@ -2,6 +2,7 @@ package com.bzilaji.tmdbclient.model;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -13,9 +14,13 @@ public class GenreAdapter {
     private Map<Integer, Genres.Genre> map;
 
     public GenreAdapter(List<Genres.Genre> genres) {
-        map = new HashMap<>(genres.size());
-        for (Genres.Genre genre : genres) {
-            map.put(genre.getId(), genre);
+        if (genres != null) {
+            map = new HashMap<>(genres.size());
+            for (Genres.Genre genre : genres) {
+                map.put(genre.getId(), genre);
+            }
+        } else {
+            map = Collections.emptyMap();
         }
     }
 

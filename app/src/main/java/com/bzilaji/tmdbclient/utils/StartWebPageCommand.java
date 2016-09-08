@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 
 import java.util.List;
 
@@ -14,11 +15,16 @@ public class StartWebPageCommand {
     private final String url;
     private final Context context;
 
-    public void excecute() {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+    public void execute() {
+        Intent intent = createIntent();
         if (isAvailable(context, intent)) {
             context.startActivity(intent);
         }
+    }
+
+    @NonNull
+    protected Intent createIntent() {
+        return new Intent(Intent.ACTION_VIEW, Uri.parse(url));
     }
 
     private boolean isAvailable(Context ctx, Intent intent) {
