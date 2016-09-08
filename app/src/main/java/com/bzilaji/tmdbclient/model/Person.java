@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Person implements PreviewableItem {
+public class Person implements PreviewItem {
 
     @SerializedName("profile_path")
     @Expose

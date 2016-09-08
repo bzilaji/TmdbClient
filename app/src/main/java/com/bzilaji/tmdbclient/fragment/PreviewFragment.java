@@ -8,11 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.bzilaji.tmdbclient.R;
-import com.bzilaji.tmdbclient.model.PreviewableItem;
+import com.bzilaji.tmdbclient.model.PreviewItem;
 import com.bzilaji.tmdbclient.model.Result;
 import com.bzilaji.tmdbclient.service.MdbCallFactory;
 
@@ -51,23 +49,23 @@ public abstract class PreviewFragment extends FilterableFragmentBase {
     }
 
     protected void downloadItems() {
-        Call<Result<PreviewableItem>> call = createPreviewCall();
+        Call<Result<PreviewItem>> call = createPreviewCall();
         switchState(STATE_DOWNLOADING);
-        call.enqueue(new Callback<Result<PreviewableItem>>() {
+        call.enqueue(new Callback<Result<PreviewItem>>() {
             @Override
-            public void onResponse(Call<Result<PreviewableItem>> call, Response<Result<PreviewableItem>> response) {
+            public void onResponse(Call<Result<PreviewItem>> call, Response<Result<PreviewItem>> response) {
                 previewItemAdapter.setItems(response.body().getResults());
                 switchState(STATE_IDLE);
             }
 
             @Override
-            public void onFailure(Call<Result<PreviewableItem>> call, Throwable t) {
+            public void onFailure(Call<Result<PreviewItem>> call, Throwable t) {
                 switchState(STATE_ERROR);
             }
         });
     }
 
-    protected abstract Call<Result<PreviewableItem>> createPreviewCall();
+    protected abstract Call<Result<PreviewItem>> createPreviewCall();
 
     @Nullable
     @Override

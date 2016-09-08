@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bzilaji.tmdbclient.R;
-import com.bzilaji.tmdbclient.model.PreviewableItem;
+import com.bzilaji.tmdbclient.model.PreviewItem;
 import com.squareup.picasso.Picasso;
 
 public class PreviewItemHolder extends RecyclerView.ViewHolder {
@@ -22,7 +22,7 @@ public class PreviewItemHolder extends RecyclerView.ViewHolder {
         imageView = (ImageView) itemView.findViewById(R.id.imageView);
     }
 
-    public void setModel(PreviewableItem model) {
+    public void setModel(PreviewItem model) {
         title.setText(model.getTitle());
         Picasso.with(title.getContext()).load(model.getImagePath())
                 .placeholder(R.drawable.default_placeholder).fit().centerCrop().into(imageView);

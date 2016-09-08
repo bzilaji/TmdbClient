@@ -1,11 +1,9 @@
 package com.bzilaji.tmdbclient.model;
 
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public interface PreviewableMediaItem extends PreviewableItem {
+public interface PreviewMediaItem extends PreviewItem {
 
     int getId();
 

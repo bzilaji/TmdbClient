@@ -11,8 +11,8 @@ import com.bzilaji.tmdbclient.fragment.adapter.PreviewItemAdapter;
 import com.bzilaji.tmdbclient.fragment.adapter.PreviewItemHolder;
 import com.bzilaji.tmdbclient.model.GenreAdapter;
 import com.bzilaji.tmdbclient.model.Genres;
-import com.bzilaji.tmdbclient.model.PreviewableItem;
-import com.bzilaji.tmdbclient.model.PreviewableMediaItem;
+import com.bzilaji.tmdbclient.model.PreviewItem;
+import com.bzilaji.tmdbclient.model.PreviewMediaItem;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -70,7 +70,7 @@ public abstract class MediaFragment extends PreviewFragment {
         private TextView genre;
         private TextView year;
         private View moreButton;
-        private PreviewableMediaItem model;
+        private PreviewMediaItem model;
 
         public MediaItemHolder(View itemView) {
             super(itemView);
@@ -87,9 +87,9 @@ public abstract class MediaFragment extends PreviewFragment {
         }
 
         @Override
-        public void setModel(PreviewableItem model) {
+        public void setModel(PreviewItem model) {
             super.setModel(model);
-            this.model = (PreviewableMediaItem) model;
+            this.model = (PreviewMediaItem) model;
             rating.setText(String.format("%.1f", this.model.getRating()));
             genre.setText(genreAdapter.toHumanReadable(this.model.getGenreIds()));
             try {
@@ -100,6 +100,6 @@ public abstract class MediaFragment extends PreviewFragment {
         }
     }
 
-    protected abstract void itemSelected(PreviewableMediaItem model);
+    protected abstract void itemSelected(PreviewMediaItem model);
 
 }

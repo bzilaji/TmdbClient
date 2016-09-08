@@ -16,6 +16,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MdbCallFactory {
 
+    private final MdbService service;
+
+    public MdbCallFactory() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BuildConfig.TMDB_BASE_URL).addConverterFactory(GsonConverterFactory.create())
+                .build();
+        service = retrofit.create(MdbService.class);
+    }
+
     public Call<Result<MovieCompact>> createCallTopMovies() {
         return getService().getTopMovies();
     }
@@ -46,11 +55,7 @@ public class MdbCallFactory {
 
 
     private MdbService getService() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BuildConfig.TMDB_BASE_URL).addConverterFactory(GsonConverterFactory.create())
-                .build();
-        return retrofit.create(MdbService.class);
-
+        return service;
     }
 
 }

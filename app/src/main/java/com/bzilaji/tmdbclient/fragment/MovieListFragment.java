@@ -2,12 +2,11 @@ package com.bzilaji.tmdbclient.fragment;
 
 
 import android.content.Intent;
-import android.util.Log;
 
 import com.bzilaji.tmdbclient.InfoActivityBase;
 import com.bzilaji.tmdbclient.MovieInfoActivity;
 import com.bzilaji.tmdbclient.model.Genres;
-import com.bzilaji.tmdbclient.model.PreviewableMediaItem;
+import com.bzilaji.tmdbclient.model.PreviewMediaItem;
 
 import retrofit2.Call;
 
@@ -19,7 +18,7 @@ public class MovieListFragment extends MediaFragment {
     }
 
     @Override
-    protected void itemSelected(PreviewableMediaItem model) {
+    protected void itemSelected(PreviewMediaItem model) {
         Intent intent = new Intent(getContext(), MovieInfoActivity.class);
         intent.putExtra(InfoActivityBase.ITEM_ID, model.getId());
         startActivity(intent);

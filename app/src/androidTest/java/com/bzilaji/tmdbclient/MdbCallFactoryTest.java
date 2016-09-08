@@ -11,8 +11,7 @@ import com.bzilaji.tmdbclient.model.Genres;
 import com.bzilaji.tmdbclient.model.MovieCompact;
 import com.bzilaji.tmdbclient.model.MovieComplete;
 import com.bzilaji.tmdbclient.model.Person;
-import com.bzilaji.tmdbclient.model.PreviewableItem;
-import com.bzilaji.tmdbclient.model.PreviewableMediaItem;
+import com.bzilaji.tmdbclient.model.PreviewItem;
 import com.bzilaji.tmdbclient.model.Result;
 import com.bzilaji.tmdbclient.model.TvCompact;
 import com.bzilaji.tmdbclient.model.TvComplete;
@@ -56,14 +55,14 @@ public class MdbCallFactoryTest {
     @Test
     public void testTopMoviesCallback() throws IOException {
         Response<Result<MovieCompact>> response = sut.createCallTopMovies().execute();
-        List<? extends PreviewableItem> results = assertResult(response.body());
+        List<? extends PreviewItem> results = assertResult(response.body());
         assertEquals(true, results.get(0) instanceof MovieCompact);
     }
 
     @NonNull
-    private List<? extends PreviewableItem> assertResult(Result<? extends PreviewableItem> result) {
+    private List<? extends PreviewItem> assertResult(Result<? extends PreviewItem> result) {
         assertNotNull(result);
-        List<? extends PreviewableItem> results = result.getResults();
+        List<? extends PreviewItem> results = result.getResults();
         assertTrue(results.size() == PAGE_SIZE);
         return results;
     }
@@ -71,17 +70,17 @@ public class MdbCallFactoryTest {
     @Test
     public void testTopTvCallback() throws IOException {
         Response<Result<TvCompact>> response = sut.createCallTopTv().execute();
-        List<? extends PreviewableItem> results = assertResult(response.body());
+        List<? extends PreviewItem> results = assertResult(response.body());
         assertEquals(true, results.get(0) instanceof TvCompact);
     }
 
     @Test
     public void testTopPeopleCallback() throws IOException {
         Response<Result<Person>> response = sut.createCallTopPeople().execute();
-        List<? extends PreviewableItem> results = assertResult(response.body());
-        PreviewableItem previewableItem = results.get(0);
-        assertEquals(true, previewableItem instanceof Person);
-        assertFalse(previewableItem.getDescription().isEmpty());
+        List<? extends PreviewItem> results = assertResult(response.body());
+        PreviewItem previewItem = results.get(0);
+        assertEquals(true, previewItem instanceof Person);
+        assertFalse(previewItem.getDescription().isEmpty());
     }
 
     @Test

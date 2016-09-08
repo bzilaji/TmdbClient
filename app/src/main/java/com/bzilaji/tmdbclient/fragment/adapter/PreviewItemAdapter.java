@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
 
-import com.bzilaji.tmdbclient.model.PreviewableItem;
+import com.bzilaji.tmdbclient.model.PreviewItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,8 +14,8 @@ import java.util.List;
 public abstract class PreviewItemAdapter extends RecyclerView.Adapter<PreviewItemHolder> implements Filterable {
 
     private CharSequence constraint;
-    private List<PreviewableItem> list;
-    private List<PreviewableItem> filteredlist;
+    private List<PreviewItem> list;
+    private List<PreviewItem> filteredlist;
 
     public PreviewItemAdapter() {
         list = Collections.emptyList();
@@ -29,8 +29,8 @@ public abstract class PreviewItemAdapter extends RecyclerView.Adapter<PreviewIte
     }
 
 
-    public void setItems(List<PreviewableItem> items) {
-        list = items != null ? new ArrayList<>(items) : Collections.<PreviewableItem>emptyList();
+    public void setItems(List<PreviewItem> items) {
+        list = items != null ? new ArrayList<>(items) : Collections.<PreviewItem>emptyList();
         filteredlist = list;
         getFilter().filter(constraint);
     }
@@ -46,9 +46,9 @@ public abstract class PreviewItemAdapter extends RecyclerView.Adapter<PreviewIte
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults results = new FilterResults();
-                List<PreviewableItem> temp = new ArrayList(list);
-                List<PreviewableItem> result = new ArrayList<>();
-                for (PreviewableItem item : temp) {
+                List<PreviewItem> temp = new ArrayList(list);
+                List<PreviewItem> result = new ArrayList<>();
+                for (PreviewItem item : temp) {
                     if (TextUtils.isEmpty(constraint) || accept(constraint.toString(), item.getTitle())) {
                         result.add(item);
                     }
@@ -65,7 +65,7 @@ public abstract class PreviewItemAdapter extends RecyclerView.Adapter<PreviewIte
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 PreviewItemAdapter.this.constraint = constraint;
-                filteredlist = (List<PreviewableItem>) results.values;
+                filteredlist = (List<PreviewItem>) results.values;
                 notifyDataSetChanged();
             }
         };

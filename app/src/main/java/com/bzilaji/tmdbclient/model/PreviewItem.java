@@ -1,7 +1,7 @@
 package com.bzilaji.tmdbclient.model;
 
 
-public interface PreviewableItem {
+public interface PreviewItem {
 
 
     String getImagePath();

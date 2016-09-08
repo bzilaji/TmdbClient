@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 
-public class MovieCompact extends Media implements PreviewableMediaItem {
+public class MovieCompact extends Media implements PreviewMediaItem {
 
     @SerializedName("adult")
     @Expose

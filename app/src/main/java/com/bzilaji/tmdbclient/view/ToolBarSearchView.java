@@ -156,23 +156,18 @@ public class ToolBarSearchView extends LinearLayout {
                 backPressed();
             }
         });
-
-
         clearButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 clear();
             }
         });
-
-
         editText.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
-
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -185,15 +180,12 @@ public class ToolBarSearchView extends LinearLayout {
                         clearButton.setVisibility(View.VISIBLE);
                         isEmpty = false;
                     }
-
                 }
 
                 if (listener != null) {
                     listener.onSearchTextChanged(s);
                 }
-
             }
-
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -228,7 +220,6 @@ public class ToolBarSearchView extends LinearLayout {
 
 
     public CharSequence getText() {
-
         return editText.getText();
 
     }
@@ -261,7 +252,6 @@ public class ToolBarSearchView extends LinearLayout {
 
 
         @Override
-
         public boolean onKeyPreIme(int keyCode, KeyEvent event) {
 
             if (keyCode == KeyEvent.KEYCODE_BACK) {

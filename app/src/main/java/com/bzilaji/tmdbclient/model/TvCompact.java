@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TvCompact extends Media implements PreviewableMediaItem {
+public class TvCompact extends Media implements PreviewMediaItem {
 
     @SerializedName("backdrop_path")
     @Expose

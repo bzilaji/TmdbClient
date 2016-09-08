@@ -101,7 +101,7 @@ public abstract class InfoActivityBase extends AppCompatActivity {
 
     private void showImdbPage() {
         String url = new ImdbUtil().getImdbUrl(detailedItem.getImdbId());
-        new StartWebPageCommand(url,this).execute();
+        new StartWebPageCommand(url, this).execute();
     }
 
     private void startDownload() {
@@ -137,7 +137,6 @@ public abstract class InfoActivityBase extends AppCompatActivity {
         website.setText(item.getWebPage());
         imdbButton.setVisibility(!TextUtils.isEmpty(item.getImdbId()) ? View.VISIBLE : View.GONE);
         Picasso.with(this).load(item.getImagePath()).into(imageView);
-        Log.d("Bencike", "item set:" + item.getTitle() + " ," + item.getWebPage());
     }
 
     @Override
