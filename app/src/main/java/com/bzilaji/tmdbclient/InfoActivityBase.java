@@ -20,6 +20,9 @@ import com.squareup.picasso.Picasso;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,54 +32,45 @@ public abstract class InfoActivityBase extends AppCompatActivity {
     private static final String KEY_ITEM = "Item";
     public static final String ITEM_ID = "ITEM_ID";
     private DetailedItem detailedItem;
-    private TextView website;
-    private View imdbButton;
-    private TextView rating;
-    private TextView genre;
-    private TextView year;
-    private TextView description;
-    private ImageView imageView;
+
+    @BindView(R.id.website)
+    TextView website;
+    @BindView(R.id.imdbButton)
+    View imdbButton;
+    @BindView(R.id.rating)
+    TextView rating;
+    @BindView(R.id.year)
+    TextView year;
+    @BindView(R.id.details)
+    TextView description;
+    @BindView(R.id.imageView)
+    ImageView imageView;
+    @BindView(R.id.progressBar)
+    View progressBar;
+    @BindView(R.id.errorLayout)
+    View retryContainer;
+    @BindView(R.id.retry)
+    View retryButton;
+    @BindView(R.id.rootLayout)
+    View rootLayout;
+    @BindView(R.id.collapsingToolbarLayout)
+    CollapsingToolbarLayout collapsingToolbar;
     private SimpleDateFormat format = new SimpleDateFormat("yyyy");
-    private CollapsingToolbarLayout collapsingToolbar;
-    private View progressBar;
-    private View retryContainer;
-    private View retryButton;
-    private View rootLayout;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_layout);
+        ButterKnife.bind(this);
+        initToolbar();
+        downloadOrLoadSavedItem(savedInstanceState);
+    }
+
+    private void initToolbar() {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        collapsingToolbar =
-                (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
-        rating = (TextView) findViewById(R.id.rating);
-        genre = (TextView) findViewById(R.id.genre);
-        year = (TextView) findViewById(R.id.year);
-        description = (TextView) findViewById(R.id.details);
-        imageView = (ImageView) findViewById(R.id.imageView);
-        website = (TextView) findViewById(R.id.website);
-        progressBar = findViewById(R.id.progressBar);
-        imdbButton = findViewById(R.id.imdbButton);
-        imdbButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showImdbPage();
-            }
-        });
-        retryContainer = findViewById(R.id.errorLayout);
-        retryButton = findViewById(R.id.retry);
-        retryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startDownload();
-            }
-        });
-        rootLayout = findViewById(R.id.rootLayout);
-        downloadOrLoadSavedItem(savedInstanceState);
     }
 
     private void downloadOrLoadSavedItem(Bundle savedInstanceState) {
@@ -99,12 +93,14 @@ public abstract class InfoActivityBase extends AppCompatActivity {
         super.onSaveInstanceState(outState);
     }
 
-    private void showImdbPage() {
+    @OnClick(R.id.imdbButton)
+    protected void showImdbPage() {
         String url = new ImdbUtil().getImdbUrl(detailedItem.getImdbId());
         new StartWebPageCommand(url, this).execute();
     }
 
-    private void startDownload() {
+    @OnClick(R.id.retry)
+    protected void startDownload() {
         rootLayout.setVisibility(View.GONE);
         retryContainer.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);

@@ -9,17 +9,21 @@ import com.bzilaji.tmdbclient.R;
 import com.bzilaji.tmdbclient.model.PreviewItem;
 import com.squareup.picasso.Picasso;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class PreviewItemHolder extends RecyclerView.ViewHolder {
 
+    @BindView(R.id.title)
     protected TextView title;
+    @BindView(R.id.details)
     protected TextView description;
+    @BindView(R.id.imageView)
     protected ImageView imageView;
 
     public PreviewItemHolder(View itemView) {
         super(itemView);
-        title = (TextView) itemView.findViewById(R.id.title);
-        description = (TextView) itemView.findViewById(R.id.details);
-        imageView = (ImageView) itemView.findViewById(R.id.imageView);
+        ButterKnife.bind(this, itemView);
     }
 
     public void setModel(PreviewItem model) {

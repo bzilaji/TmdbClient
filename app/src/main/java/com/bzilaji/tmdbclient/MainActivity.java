@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,23 +24,34 @@ import com.bzilaji.tmdbclient.view.ToolBarSearchViewListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
 
+    @BindView(R.id.search_bar)
+    ToolBarSearchView searchView;
+    @BindView(R.id.pager)
+    ViewPager viewPager;
+    @BindView(R.id.tabs)
+    TabLayout tabLayout;
 
-    private ToolBarSearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tabbed_activity);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        ButterKnife.bind(this);
+        initTabs();
+
+
+    }
+
+    private void initTabs() {
         final ViewPagerAdapter adapter = createPagerAdapter();
         viewPager.setAdapter(adapter);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-        searchView = (ToolBarSearchView) findViewById(R.id.search_bar);
         searchView.setListener(new ToolBarSearchViewListener() {
             @Override
             public void onSearchCleared(CharSequence old) {
@@ -58,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
                 adapter.setQuery(s);
             }
         });
-
-
     }
 
     private ViewPagerAdapter createPagerAdapter() {

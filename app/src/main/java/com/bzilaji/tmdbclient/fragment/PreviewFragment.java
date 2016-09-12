@@ -14,20 +14,28 @@ import com.bzilaji.tmdbclient.model.PreviewItem;
 import com.bzilaji.tmdbclient.model.Result;
 import com.bzilaji.tmdbclient.service.MdbCallFactory;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public abstract class PreviewFragment extends FilterableFragmentBase {
     protected MdbCallFactory callFactory;
-    private View progressBar;
-    private RecyclerView recycleView;
-    private View retryButton;
-    private View retryContainer;
+    @BindView(R.id.progressBar)
+    View progressBar;
+    @BindView(R.id.recycleView)
+    RecyclerView recycleView;
+    @BindView(R.id.retry)
+    View retryButton;
+    @BindView(R.id.retryContainer)
+    View retryContainer;
     protected static final int STATE_IDLE = 0;
     protected static final int STATE_DOWNLOADING = 1;
     protected static final int STATE_ERROR = 2;
     private int currentState = STATE_IDLE;
+    private Unbinder unBinder;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,30 +76,23 @@ public abstract class PreviewFragment extends FilterableFragmentBase {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        progressBar = view.findViewById(R.id.progressBar);
-        recycleView = (RecyclerView) view.findViewById(R.id.recycleView);
+        unBinder = ButterKnife.bind(this, view);
         recycleView.setAdapter(previewItemAdapter);
         recycleView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         toogleProgressbarState(currentState == STATE_DOWNLOADING);
-        retryButton = view.findViewById(R.id.retry);
         retryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startDownload();
             }
         });
-        retryContainer = view.findViewById(R.id.retryContainer);
         toogleErrorviewState(currentState == STATE_ERROR);
     }
 
     @Override
     public void onDestroyView() {
+        unBinder.unbind();
         super.onDestroyView();
-        progressBar = null;
-        recycleView.setAdapter(null);
-        recycleView = null;
-        retryButton = null;
-        retryContainer = null;
     }
 
 

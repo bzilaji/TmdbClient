@@ -17,6 +17,9 @@ import com.bzilaji.tmdbclient.model.PreviewMediaItem;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -64,20 +67,22 @@ public abstract class MediaFragment extends PreviewFragment {
     protected abstract Call<Genres> createGenreCall();
 
 
-    private class MediaItemHolder extends PreviewItemHolder {
+    class MediaItemHolder extends PreviewItemHolder {
 
-        private TextView rating;
-        private TextView genre;
-        private TextView year;
-        private View moreButton;
+        @BindView(R.id.rating)
+        TextView rating;
+        @BindView(R.id.genre)
+        TextView genre;
+        @BindView(R.id.year)
+        TextView year;
+        @BindView(R.id.more_button)
+        View moreButton;
+
         private PreviewMediaItem model;
 
         public MediaItemHolder(View itemView) {
             super(itemView);
-            rating = (TextView) itemView.findViewById(R.id.rating);
-            genre = (TextView) itemView.findViewById(R.id.genre);
-            year = (TextView) itemView.findViewById(R.id.year);
-            moreButton = itemView.findViewById(R.id.more_button);
+            ButterKnife.bind(this, itemView);
             moreButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
