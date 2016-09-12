@@ -14,8 +14,8 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         buildConfigField "String", "TMDB_API_KEY", '"0a08e38b874d0aa2d426ffc04357069d"'
-        buildConfigField "String", "IMAGE_BASE_URL" , '"http://image.tmdb.org/t/p/w500"'
-        buildConfigField "String", "TMDB_BASE_URL" , '"http://api.themoviedb.org/3/"';
+        buildConfigField "String", "IMAGE_BASE_URL", '"http://image.tmdb.org/t/p/w500"'
+        buildConfigField "String", "TMDB_BASE_URL", '"http://api.themoviedb.org/3/"';
     }
     buildTypes {
         release {
@@ -36,6 +36,10 @@ dependencies {
     compile 'com.android.support:design:24.2.0'
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'com.f2prateek.dart:dart:2.0.1'
+    provided 'com.f2prateek.dart:dart-processor:2.0.1'
+    compile 'com.f2prateek.dart:henson:2.0.1'
+    provided 'com.f2prateek.dart:henson-processor:2.0.1'
 
 
     androidTestCompile 'com.android.support:support-annotations:24.2.0'

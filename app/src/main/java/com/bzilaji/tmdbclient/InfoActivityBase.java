@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.bzilaji.tmdbclient.model.DetailedItem;
 import com.bzilaji.tmdbclient.utils.ImdbUtil;
 import com.bzilaji.tmdbclient.utils.StartWebPageCommand;
+import com.f2prateek.dart.Dart;
+import com.f2prateek.dart.InjectExtra;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -30,8 +32,10 @@ import retrofit2.Response;
 public abstract class InfoActivityBase extends AppCompatActivity {
 
     private static final String KEY_ITEM = "Item";
-    public static final String ITEM_ID = "ITEM_ID";
     private DetailedItem detailedItem;
+
+    @InjectExtra
+    int itemId;
 
     @BindView(R.id.website)
     TextView website;
@@ -63,6 +67,7 @@ public abstract class InfoActivityBase extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_layout);
         ButterKnife.bind(this);
+        Dart.inject(this);
         initToolbar();
         downloadOrLoadSavedItem(savedInstanceState);
     }
@@ -104,7 +109,7 @@ public abstract class InfoActivityBase extends AppCompatActivity {
         rootLayout.setVisibility(View.GONE);
         retryContainer.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
-        Call<DetailedItem> call = getCall(getIntent().getExtras().getInt(ITEM_ID));
+        Call<DetailedItem> call = getCall(itemId);
         call.enqueue(new Callback<DetailedItem>() {
             @Override
             public void onResponse(final Call<DetailedItem> call, final Response<DetailedItem> response) {

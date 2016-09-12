@@ -3,8 +3,7 @@ package com.bzilaji.tmdbclient.fragment;
 
 import android.content.Intent;
 
-import com.bzilaji.tmdbclient.InfoActivityBase;
-import com.bzilaji.tmdbclient.MovieInfoActivity;
+import com.bzilaji.tmdbclient.Henson;
 import com.bzilaji.tmdbclient.model.Genres;
 import com.bzilaji.tmdbclient.model.PreviewMediaItem;
 
@@ -19,8 +18,7 @@ public class MovieListFragment extends MediaFragment {
 
     @Override
     protected void itemSelected(PreviewMediaItem model) {
-        Intent intent = new Intent(getContext(), MovieInfoActivity.class);
-        intent.putExtra(InfoActivityBase.ITEM_ID, model.getId());
+        Intent intent = Henson.with(getContext()).gotoMovieInfoActivity().itemId(model.getId()).build();
         startActivity(intent);
     }
 
